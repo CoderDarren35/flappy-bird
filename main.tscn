@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://ce5pxx447qull"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_56hv8"]
+[ext_resource type="Script" path="res://player.gd" id="1_jikhj"]
+[ext_resource type="Texture2D" uid="uid://nht3i3odek38" path="res://playerbird.png" id="3_6qhot"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_klbmq"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iakvx"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_56hv8")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(50, 50)
+physics_material_override = SubResource("PhysicsMaterial_klbmq")
+lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_jikhj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_iakvx")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Timer" type="Timer" parent="RigidBody2D"]
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="RigidBody2D"]
+
+[node name="Playerbird" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(9.53674e-07, 7.15256e-07)
+scale = Vector2(0.0637255, 0.0694445)
+texture = ExtResource("3_6qhot")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(575, 323)
+
+[node name="Label" type="Label" parent="Camera2D"]
+offset_left = -575.0
+offset_top = -323.0
+offset_right = -377.0
+offset_bottom = -300.0
+text = "Score: 
+"
+
+[node name="Label2" type="Label" parent="Camera2D"]
+offset_left = -575.0
+offset_top = -293.0
+offset_right = -535.0
+offset_bottom = -270.0
+text = "High Score: "
+
+[node name="Label3" type="Label" parent="Camera2D"]
+offset_left = -574.0
+offset_top = -266.0
+offset_right = -480.0
+offset_bottom = -243.0
+text = "Time: "
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_shape_entered"]
+[connection signal="timeout" from="RigidBody2D/Timer" to="RigidBody2D" method="_on_timer_timeout"]
+[connection signal="screen_exited" from="RigidBody2D/VisibleOnScreenNotifier2D" to="RigidBody2D" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

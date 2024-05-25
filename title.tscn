@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs3an1ii0t7ai"]
+
+[ext_resource type="Script" path="res://title.gd" id="1_7s8tp"]
+[ext_resource type="Texture2D" uid="uid://cdtxuyuo1udgn" path="res://flappy-bird.png" id="1_o6til"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_7s8tp")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 506.0
+offset_top = 461.0
+offset_right = 681.0
+offset_bottom = 507.0
+text = "PLAY"
+
+[node name="Flappy-bird" type="Sprite2D" parent="."]
+position = Vector2(600, 235)
+scale = Vector2(0.247917, 0.278125)
+texture = ExtResource("1_o6til")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 518.0
+offset_top = 376.0
+offset_right = 671.0
+offset_bottom = 399.0
+text = "High Score: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
